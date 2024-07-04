@@ -31,6 +31,12 @@ const Register = async (req, res) => {
         // Create a JWT token
         const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: '1h' });
 
+        // Set the token in a cookie
+        res.cookie('JSESSIONID', token, { httpOnly: true });
+
+        // Set token in the response header
+        res.setHeader('Authorization', token);
+
         res.status(201).json({ token });
     } catch (e) {
         console.error('Error: ', e.message);
@@ -57,6 +63,12 @@ const Login = async (req, res) => {
 
         // Generate a JWT token
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+        // Set the token in a cookie
+        res.cookie('JSESSIONID', token, { httpOnly: true });
+
+        // Set token in the response header
+        res.setHeader('Authorization', token);
 
         res.json({ message: 'Login successful!', token, user: { id: user._id, username: user.username, email: user.email, roles: user.roles || ['ROLE_MODERATOR', 'ROLE_ADMIN', 'ROLE_USER'] } });
     }
