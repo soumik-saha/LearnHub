@@ -10,6 +10,8 @@ const Home = () => {
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+  const userId = user ? user.id : null;
 
   useEffect(() => {
     UserService.getPublicContent().then(
@@ -90,10 +92,7 @@ const Home = () => {
                 <p className="card-text"><small className="text-muted">Estimated Time: {course.estimatedTime}</small></p>
               </div>
               <div className="card-footer bg-light">
-                {/* < EnrollButton /> */}
-                {/* <button className="btn btn-primary btn-block" onClick={handleEnroll}>Enroll</button> */}
-                {/* < CourseEnrollButton userId={JSON.parse(localStorage.getItem('user')).id} courseId={course._id} /> */}
-                {course.students.includes(JSON.parse(localStorage.getItem('user')).id) ? <button className="btn btn-success btn-block" disabled>Enrolled</button> : < CourseEnrollButton userId={JSON.parse(localStorage.getItem('user')).id} courseId={course._id} />}
+                {userId && course.students.includes(userId) ? <button className="btn btn-success btn-block" disabled>Enrolled</button> : < CourseEnrollButton userId={userId} courseId={course._id} />}
               </div>
             </div>
           </div>
