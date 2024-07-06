@@ -17,13 +17,25 @@ const CourseSchema = new mongoose.Schema({
     },
     instructor: {
         type: String,
+        ref: 'User',
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: 'User',
-    }
-})
+    },
+    students: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
 
 const Course = mongoose.model('Course', CourseSchema);
 

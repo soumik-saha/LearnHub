@@ -70,7 +70,7 @@ const Login = async (req, res) => {
         // Set token in the response header
         res.setHeader('Authorization', token);
 
-        res.json({ message: 'Login successful!', token, user: { id: user._id, username: user.username, email: user.email, roles: user.roles || ['ROLE_MODERATOR', 'ROLE_ADMIN', 'ROLE_USER'] } });
+        res.json({ message: 'Login successful!', token, user: { id: user._id, username: user.username, email: user.email, roles: user.roles || ['ROLE'] } });
     }
     catch (e) {
         console.error('Error: ', e.message);

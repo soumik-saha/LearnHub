@@ -15,17 +15,20 @@ import BoardAdmin from "./components/BoardAdmin";
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "./common/EventBus";
+import Enrolled from "./components/Enrolled";
+import EnrolledCourses from "./components/EnrolledCourses";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
     if (user) {
-      console.log("Setting user:", user);
+      setLoggedIn(true);
       setCurrentUser(user);
       setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
@@ -42,9 +45,10 @@ const App = () => {
 
   const logOut = () => {
     AuthService.logout();
+    setLoggedIn(false);
     setShowModeratorBoard(false);
     setShowAdminBoard(false);
-    setCurrentUser(undefined);
+    setCurrentUser(false);
   };
 
   return (
@@ -59,6 +63,14 @@ const App = () => {
               Home
             </Link>
           </li>
+
+          {loggedIn && (
+            <li className="nav-item">
+              <Link to={"/enrolledCourses"} className="nav-link">
+                Enrolled Courses
+              </Link>
+            </li>
+          )}
 
           {showModeratorBoard && (
             <li className="nav-item">
@@ -76,13 +88,13 @@ const App = () => {
             </li>
           )}
 
-          {currentUser && (
+          {/* {currentUser && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
                 User
               </Link>
             </li>
-          )}
+          )} */}
         </div>
 
         {currentUser ? (
@@ -122,6 +134,8 @@ const App = () => {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/enrolled" element={<Enrolled />} />
+          <Route exact path="/enrolledCourses" element={< EnrolledCourses />} />
           <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator />} />
           <Route path="/admin" element={<BoardAdmin />} />

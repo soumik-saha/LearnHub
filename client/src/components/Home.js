@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/user.service";
+// import EnrollButton from './Home';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/auth.service';
+import axios from "axios";
+import CourseEnrollButton from './CourseEnrollButton';
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
@@ -85,7 +90,10 @@ const Home = () => {
                 <p className="card-text"><small className="text-muted">Estimated Time: {course.estimatedTime}</small></p>
               </div>
               <div className="card-footer bg-light">
-                <button className="btn btn-primary btn-block">Enroll</button>
+                {/* < EnrollButton /> */}
+                {/* <button className="btn btn-primary btn-block" onClick={handleEnroll}>Enroll</button> */}
+                {/* < CourseEnrollButton userId={JSON.parse(localStorage.getItem('user')).id} courseId={course._id} /> */}
+                {course.students.includes(JSON.parse(localStorage.getItem('user')).id) ? <button className="btn btn-success btn-block" disabled>Enrolled</button> : < CourseEnrollButton userId={JSON.parse(localStorage.getItem('user')).id} courseId={course._id} />}
               </div>
             </div>
           </div>

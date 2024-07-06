@@ -14,7 +14,12 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    // add for courses enrolled with all details of the course
+    enrolledCourses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course',
+    }],
 })
 
 const User = mongoose.model('User', UserSchema);
