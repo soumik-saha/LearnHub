@@ -1,16 +1,16 @@
 import express from 'express';
-import * as UserController from '../controllers/UserController.js';
+import * as userController from '../controllers/userController.js';
 
 
 const router = express.Router();
 
 // Get user profile
-router.get('/profile/:userId', UserController.getProfile);
+router.get('/profile/:userId', userController.getProfile);
 
 // Get courses the user is enrolled in
-router.get('/:userId/enrolledCourses', UserController.getEnrolledCourses);
+router.get('/:userId/enrolledCourses', userController.getEnrolledCourses);
 
 // Enroll in a course
-router.post('/:userId/:courseId/enroll', UserController.enrollInCourse);
+router.post('/:userId/:courseId/enroll', userController.enrollInCourse);
 
 export default router;

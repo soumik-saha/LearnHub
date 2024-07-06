@@ -1,6 +1,5 @@
 import User from '../models/User.js';
 import Course from '../models/Course.js';
-import mongoose from 'mongoose';
 
 // Get user profile
 const getProfile = async (req, res) => {
