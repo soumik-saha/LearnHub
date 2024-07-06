@@ -18,6 +18,8 @@ import EventBus from "./common/EventBus";
 import Enrolled from "./components/Enrolled";
 import EnrolledCourses from "./components/EnrolledCourses";
 
+// require('dotenv').config();
+
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
